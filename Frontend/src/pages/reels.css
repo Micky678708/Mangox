@@ -1,0 +1,50 @@
+.reelsPage {
+  background: #000;
+  min-height: 100vh;
+}
+
+.reelScreen {
+  position: relative;
+  width: 100%;
+  max-width: 520px;
+  margin: 0 auto;
+  min-height: 100vh;
+  background: #000;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+}
+
+.reelVideo {
+  width: 100%;
+  height: 100vh;
+  object-fit: contain;
+  background: #000;
+  display: block;
+}
+.reelOverlay {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  display: flex;
+  align-items: flex-end;
+  padding: 18px;
+  background: linear-gradient(to top, rgba(0,0,0,.55), rgba(0,0,0,.08), rgba(0,0,0,0));
+}
+
+.reelMeta {
+  color: #fff;
+  max-width: 75%;
+}
+
+.reelUser {
+  font-size: 16px;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+
+.reelCaption {
+  font-size: 14px;
+  line-height: 1.35;
+  opacity: 0.96;
+}
