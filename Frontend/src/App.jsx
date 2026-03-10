@@ -8,7 +8,7 @@ import ForgotPassword from "./pages/ForgotPassword";
 import FindProfile from "./pages/FindProfile";
 
 import ReelsFeed from "./pages/ReelsFeed";
-import Home from "./pages/home";
+import Home from "./pages/Home";
 import Explore from "./pages/Explore";
 import ChatRoom from "./pages/ChatRoom";
 import Chats from "./pages/Chats";
