@@ -1,5 +1,6 @@
 import { useEffect, useRef } from "react";
-import useReelsSwipe from "../hooks/useReelsSwipe";export default function useReelSwipe({ onNext, onPrev, threshold = 50, cooldownMs = 450 }) {
+
+export default function useReelSwipe({ onNext, onPrev, threshold = 50, cooldownMs = 450 }) {
   const startY = useRef(null);
   const locked = useRef(false);
   const wheelAcc = useRef(0);

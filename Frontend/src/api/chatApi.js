@@ -14,6 +14,7 @@ export async function sendMessageApi(chatId, payload) {
   const { data } = await api.post(`/api/chat/${chatId}/message`, payload);
   return data?.data || null;
 }
+
 export async function sendMediaMessageApi(chatId, file) {
   const fd = new FormData();
   fd.append("media", file);
