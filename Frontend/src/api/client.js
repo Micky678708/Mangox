@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const client = axios.create({
-  baseURL: "https://YOUR-RENDER-BACKEND.onrender.com",
+  baseURL: "https://mangox.onrender.com",
   headers: {
     "Content-Type": "application/json"
   },
@@ -9,3 +9,9 @@ const client = axios.create({
 });
 
 export default client;
+
+
+
+
+
+//mongodb+srv://eaditingsadvideo:mangox123@cluster0.u4v8gkb.mongodb.net/?appName=Cluster0

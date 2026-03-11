@@ -38,7 +38,11 @@ function toE164(phone) {
 }
 
 export async function sendSmsOtp({ to, otp }) {
-  if (!client) throw new Error("Twilio not configured. Check env keys.");
+
+  if (!client) {
+    console.log("⚠️ Twilio disabled, skipping SMS OTP");
+    return { sid: null, to };
+  }
 
   const toNumber = toE164(to);
 
