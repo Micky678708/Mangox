@@ -65,7 +65,8 @@ export default function ForgotPassword() {
     <div style={styles.page}>
       <div style={styles.card}>
         <h2 style={styles.h2}>Forgot Password</h2>
-        <p style={styles.sub}>Email / phone डालो, OTP लो, फिर password बदलो.</p>
+        <p style={styles.sub}>Email / phoneEnter your email or phone.
+        We will send an OTP to reset your password..</p>
 
         {err ? <div style={styles.err}>{err}</div> : null}
         {msg ? <div style={styles.ok}>{msg}</div> : null}

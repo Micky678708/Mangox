@@ -1,21 +1,22 @@
-import axios from "axios";
+import axios from "axios"
 
 const client = axios.create({
   baseURL: "https://mangox-jhei.onrender.com",
   headers: {
-    "Content-Type": "application/json",
-  },
-});
+    "Content-Type": "application/json"
+  }
+})
 
-// 🔑 token automatically add karega
+// token automatically add
 client.interceptors.request.use((config) => {
-  const token = localStorage.getItem("token");
+
+  const token = localStorage.getItem("token")
 
   if (token) {
-    config.headers.Authorization = `Bearer ${token}`;
+    config.headers.Authorization = `Bearer ${token}`
   }
 
-  return config;
-});
+  return config
+})
 
-export default client;
+export default client
