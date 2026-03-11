@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const client = axios.create({
-  baseURL: "https://mangox.onrender.com",
+  baseURL: "https://mangox-jhei.onrender.com",
   headers: {
     "Content-Type": "application/json"
   },
