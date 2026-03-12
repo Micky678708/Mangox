@@ -1,25 +1,5 @@
 import path from "path";
 
-const demoUsers = [
-  { id: "1", name: "user1", username: "user1", online: true },
-  { id: "2", name: "user2", username: "user2", online: false },
-  { id: "3", name: "user3", username: "user3", online: true },
-  { id: "4", name: "user4", username: "user4", online: true },
-];
-
-const demoMessages = {
-  "1": [
-    { id: "m1", sender: "other", text: "Hi 👋", createdAt: Date.now() - 1000 * 60 * 8 },
-    { id: "m2", sender: "me", text: "Hello! UI pe kaam ho raha 😄", createdAt: Date.now() - 1000 * 60 * 6 },
-    { id: "m3", sender: "other", text: "Telegram jaisi animation bhi chahiye", createdAt: Date.now() - 1000 * 60 * 4 },
-  ],
-  "2": [
-    { id: "m1", sender: "other", text: "Bro online ho?", createdAt: Date.now() - 1000 * 60 * 20 },
-  ],
-  "3": [],
-  "4": [],
-};
-
 export const getChats = async (req, res) => {
   try {
     const chats = demoUsers.map((u) => {
