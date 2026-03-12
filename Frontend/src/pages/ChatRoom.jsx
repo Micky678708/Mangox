@@ -1,4 +1,5 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
+import useSocket from "../hooks/useSocket";
 import { Link, useParams } from "react-router-dom";
 import {
   getChatMessagesApi,
@@ -8,10 +9,11 @@ import {
 
 export default function ChatRoom() {
   const { id } = useParams();
-
+const user = JSON.parse(localStorage.getItem("user"));
   const [text, setText] = useState("");
   const [chat, setChat] = useState(null);
   const [msgs, setMsgs] = useState([]);
+  const socket = useSocket();
   const [loading, setLoading] = useState(true);
   const [sending, setSending] = useState(false);
   const [err, setErr] = useState("");
@@ -65,7 +67,25 @@ const receiveSound = useRef(new Audio("/sounds/receive.mp3"));
       }
     })();
   }, [id]);
+useEffect(()=>{
 
+if(!socket) return
+
+socket.emit("addUser",user._id)
+
+socket.on("getMessage",(data)=>{
+
+setMsgs(prev=>[
+...prev,
+{
+text:data.text,
+mine:false
+}
+])
+
+})
+
+},[socket])
   useEffect(() => {
   localStorage.setItem(`chat-theme-${id}`, chatTheme);
 }, [id, chatTheme]);
@@ -113,7 +133,14 @@ useEffect(() => {
         {}
 
     try {
-      const saved = await sendMessageApi(id, { text: trimmed });
+      const saved = await sendMessageApi(id, {
+         text: trimmed });
+
+         socket.emit("sendMessage",{
+         senderId:user._id,
+         receiverId:id,
+         text:trimmed
+        })
       setMsgs((prev) => prev.map((m) => (m.id === temp.id ? saved : m)));
     } catch (e) {
       setErr(e?.response?.data?.message || "Message failed");

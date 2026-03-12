@@ -72,6 +72,7 @@ export default function App() {
         }
       >
         {/* Public */}
+        <Route path="/chat/:id" element={<ChatRoom/>}/>
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/upload-reel" element={<UploadReel />} />
