@@ -4,11 +4,9 @@ import ChatInput from "./ChatInput"
 export default function ChatWindow(){
 
 const messages=[
-
 { id:1,text:"Hello",mine:false },
 { id:2,text:"Hi bro",mine:true },
 { id:3,text:"Kya haal",mine:false }
-
 ]
 
 return(
