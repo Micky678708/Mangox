@@ -101,20 +101,12 @@ body,
 /* bottom nav */
 .bottomNav {
   position: fixed;
-  left: 50%;
   bottom: 0;
-  transform: translateX(-50%);
-  width: 100%;
-  max-width: 520px;
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  align-items: center;
-  gap: 4px;
-  padding: 8px 8px 10px;
-  background: var(--nav);
-  backdrop-filter: blur(12px);
-  border-top: 1px solid var(--line);
-  z-index: 100;
+  left:0;
+  width: 100;
+  background: #0b0b0b;
+  border-top: 1px solid #222;
+  z-index: 999;
 }
 
 .bottomNavItem {

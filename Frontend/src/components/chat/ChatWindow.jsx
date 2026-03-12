@@ -13,7 +13,7 @@ return(
 
 <div className="chatWindow">
 
-<div className="messages">
+<div className="messages" style={{PaddingBottom:"90px"}}>
 
 {messages.map(m=>(
 <MessageBubble key={m.id} message={m}/>
