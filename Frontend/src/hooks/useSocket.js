@@ -1,5 +1,5 @@
 import { useEffect,useState } from "react"
-import { io } from "socket.io"
+import { io } from "socket.io-client"
 
 export default function useSocket(){
 
