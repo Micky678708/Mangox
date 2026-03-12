@@ -1,3 +1,4 @@
+import "./Chat.css"
 import ChatSidebar from "./ChatSidebarTEMP";
 import ChatWindow from "./ChatWindow";
 
