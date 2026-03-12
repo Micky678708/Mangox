@@ -1,4 +1,4 @@
-import ChatSidebar from "./ChatSidebar";
+import ChatSidebar from "./ChatSidebarTEMP";
 import ChatWindow from "./ChatWindow";
 
 export default function ChatLayout() {
