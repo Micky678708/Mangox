@@ -1,19 +1,11 @@
-import ChatSidebar from "./ChatSidebar"
-import ChatWindow from "./ChatWindow"
-import "./chat.css"
+import ChatSidebar from "./ChatSidebar";
+import ChatWindow from "./ChatWindow";
 
 export default function ChatLayout() {
-
-return (
-
-<div className="chatLayout">
-
-<ChatSidebar/>
-
-<ChatWindow/>
-
-</div>
-
-)
-
+  return (
+    <div style={{ display: "flex", height: "100vh" }}>
+      <ChatSidebar />
+      <ChatWindow />
+    </div>
+  );
 }
