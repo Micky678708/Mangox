@@ -1,8 +1,9 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import { getChatsApi } from "../api/chatApi";
-
+import ChatLayout from "../components/chat/ChatLayout";
 export default function Chats() {
+  return <ChatLayout/>;}
   const [items, setItems] = useState([]);
   const [query, setQuery] = useState("");
   const [loading, setLoading] = useState(true);
@@ -89,7 +90,7 @@ export default function Chats() {
       </div>
     </div>
   );
-}
+
 
 function formatTime(ts) {
   if (!ts) return "";
