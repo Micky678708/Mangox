@@ -24,5 +24,18 @@ router.post("/:id/unsave", protect, unsaveReel);
 
 // ✅ UPLOAD (field name must be "video")
 router.post("/upload", protect, uploadReelVideo.single("video"), uploadReel);
+router.get("/search",async(req,res)=>{
 
+const q = req.query.q
+
+const users = await User.find({
+username:{
+$regex:q,
+$options:"i"
+}
+}).limit(10)
+
+res.json(users)
+
+})
 export default router;
