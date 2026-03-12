@@ -1,3 +1,6 @@
+
+import { Server } from "socket.io";
+import chatSocket from "./sockets/chat.socket.js";
 import dotenv from "dotenv";
 dotenv.config();
 import path from "path";
@@ -25,7 +28,13 @@ if (!hasSid || !hasToken || !hasFrom) {
 }
 
 const PORT = process.env.PORT || 3000;
+const io = new Server(server,{
+cors:{
+origin:"https://mangox-zeta.vercel.app"
+}
+})
 
+chatSocket(io)
 connectDB()
   .then(() => {
     app.listen(PORT, () => {
