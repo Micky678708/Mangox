@@ -83,22 +83,32 @@ export default function Login() {
 
             <form onSubmit={onSubmit} className="authForm">
               <label className="authLabel">Phone, username, or email</label>
+              <div className="authField">
+
               <input
-              className="authInput"
-              placeholder="Enter username or email"
+              placeholder=" "
               value={identifier}
               onChange={(e)=>setIdentifier(e.target.value)}
               />
 
+             <label>Phone, username, or email</label>
+
+             </div>
+
               <label className="authLabel">Password</label>
               
-              <input
-               className="authInput"
-               type="password"
-               placeholder="Enter password"
-               value={password}
-              onChange={(e)=>setPassword(e.target.value)}
-              />
+              <div className="authField">
+
+            <input
+            type="password"
+            placeholder=" "
+            value={password}
+            onChange={(e)=>setPassword(e.target.value)}
+            />
+
+            <label>Password</label>
+
+            </div>
 
               <button className="authBtn" disabled={loading}>
                 {loading ? "Logging in..." : "Log in"}

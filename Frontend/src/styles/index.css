@@ -167,6 +167,46 @@ body,
 /* =========================
    AUTH PAGES
 ========================= */
+/* floating input */
+
+.authField {
+  position: relative;
+}
+
+.authField input {
+  width: 100%;
+  border: 1px solid var(--line);
+  background: var(--bg-soft);
+  color: var(--text);
+  border-radius: 16px;
+  padding: 18px 16px 8px;
+  font-size: 15px;
+  outline: none;
+  transition: 0.2s ease;
+}
+
+.authField label {
+  position: absolute;
+  left: 16px;
+  top: 14px;
+  font-size: 14px;
+  color: var(--muted);
+  pointer-events: none;
+  transition: 0.2s ease;
+}
+
+/* pull up animation */
+
+.authField input:focus + label,
+.authField input:not(:placeholder-shown) + label {
+  top: 5px;
+  font-size: 11px;
+  color: #8a3ffc;
+}
+
+.authField input:focus {
+  border-color: #8a3ffc;
+}
 
 .authPage {
   min-height: 100vh;
@@ -336,7 +376,7 @@ body,
   color: var(--muted);
 }
 
-.authBtn {
+  .authBtn {
   margin-top: 8px;
   border: 0;
   border-radius: 16px;
@@ -345,9 +385,9 @@ body,
   font-weight: 800;
   color: white;
   cursor: pointer;
-  background: linear-gradient(135deg, #ff7a18, #ff2d55 55%, #8a3ffc);
-  box-shadow: 0 14px 30px rgba(255, 45, 85, 0.22);
-  transition: transform 0.18s ease, opacity 0.18s ease;
+
+  background: linear-gradient(135deg,#a855f7,#8b5cf6,#7c3aed);
+  box-shadow: 0 12px 28px rgba(139,92,246,0.35);
 }
 
 .authBtn:hover {
