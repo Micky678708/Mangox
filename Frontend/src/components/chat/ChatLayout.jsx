@@ -1,5 +1,5 @@
 import "./Chat.css";
-import ChatSidebar from "./Chatsidebar";
+import ChatSidebar from "./ChatSidebar";
 import ChatWindow from "./ChatWindow";
 
 export default function ChatLayout() {
