@@ -8,18 +8,16 @@ const [query,setQuery] = useState("")
 const [users,setUsers] = useState([])
 
 async function searchUser(e){
+  const q = e.target.value
+  setQuery(q)
 
-const q = e.target.value
-setQuery(q)
+  if(q.length < 2){
+    setUsers([])
+    return
+  }
 
-if(q.length < 2){
-setUsers([])
-return
-}
-
-const res = await axios.get(`/api/chat/users/search?q=${q}`)
-setUsers(res.data)
-
+  const res = await axios.get(`/api/chat/users/search?q=${q}`)
+  setUsers(Array.isArray(res.data) ? res.data : [])
 }
 
 return(
