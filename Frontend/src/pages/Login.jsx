@@ -68,7 +68,7 @@ export default function Login() {
             {err ? <div className="authErr">{err}</div> : null}
 
             <form onSubmit={onSubmit} className="authForm">
-              <label className="authLabel">Phone, username, or email</label>
+              <label className="authLabel">Login in MangoX</label>
               <div className="authField">
 
               <input
@@ -77,11 +77,11 @@ export default function Login() {
               onChange={(e)=>setIdentifier(e.target.value)}
               />
 
-             <label>Login in MangoX</label>
+             <label>Phone, username, or email</label>
 
              </div>
 
-              <label className="authLabel"></label>
+              <label className="authLabel">Password</label>
               
               <div className="authField">
 
