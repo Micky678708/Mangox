@@ -1,12 +1,18 @@
-import "../../styles/auth.css"
+import React from "react"
+import "../styles/auth.css"
 
-function FloatingInput({ type, label }) {
+const FlotingInput = ({ type = "text", label, value, onChange }) => {
   return (
-    <div className="inputBox">
-      <input type={type} required />
+    <div className="floatingInput">
+      <input
+        type={type}
+        value={value}
+        onChange={onChange}
+        required
+      />
       <label>{label}</label>
     </div>
   )
 }
 
-export default FloatingInput
+export default FlotingInput
