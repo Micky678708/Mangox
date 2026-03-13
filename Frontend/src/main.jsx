@@ -4,7 +4,7 @@ import { BrowserRouter } from "react-router-dom";
 import App from "./App.jsx";
 import { AuthProvider } from "./context/AuthContext.jsx";
 import "./styles/index.css";
-import "./styles/auth.css";
+// import "./styles/auth.css";
 
 import { setupInterceptors } from "./api/setupInterceptors";
 setupInterceptors();

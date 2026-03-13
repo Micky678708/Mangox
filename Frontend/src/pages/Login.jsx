@@ -84,21 +84,20 @@ export default function Login() {
             <form onSubmit={onSubmit} className="authForm">
               <label className="authLabel">Phone, username, or email</label>
               <input
-                className="authInput"
-                placeholder="Enter username or email"
-                value={identifier}
-                onChange={(e) => setIdentifier(e.target.value)}
-                autoComplete="username"
+              className="authInput"
+              placeholder="Enter username or email"
+              value={identifier}
+              onChange={(e)=>setIdentifier(e.target.value)}
               />
 
               <label className="authLabel">Password</label>
+              
               <input
-                className="authInput"
-                placeholder="Enter password"
-                type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                autoComplete="current-password"
+               className="authInput"
+               type="password"
+               placeholder="Enter password"
+               value={password}
+              onChange={(e)=>setPassword(e.target.value)}
               />
 
               <button className="authBtn" disabled={loading}>
