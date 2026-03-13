@@ -1,33 +1,21 @@
 import client from "./client";
+import { API_URL } from "../utils/url"
 
-export const loginUser = async (req,res)=>{
+export const loginApi = async (payload) => {
 
-const {identifier,password} = req.body
-
-const user = await User.findOne({
-$or:[
-{email:identifier},
-{username:identifier},
-{phone:identifier}
-]
+const res = await fetch(`${API_URL}/auth/login`,{
+method:"POST",
+headers:{
+"Content-Type":"application/json"
+},
+body:JSON.stringify(payload)
 })
 
-if(!user){
-return res.status(400).json({message:"User not found"})
-}
+const text = await res.text()
 
-const valid = await bcrypt.compare(password,user.password)
+const data = text ? JSON.parse(text) : {}
 
-if(!valid){
-return res.status(400).json({message:"Invalid password"})
-}
-
-const token = generateToken(user._id)
-
-res.json({
-token,
-user
-})
+return data
 
 }
 export async function signupApi(payload) {
