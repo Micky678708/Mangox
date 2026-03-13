@@ -70,3 +70,17 @@ margin-top:15px;
 color:#0095f6;
 cursor:pointer;
 }
+.errorText{
+color:red;
+font-size:13px;
+margin-top:10px;
+text-align:center;
+}
+
+.authBox{
+width:380px;
+background:white;
+padding:40px;
+border-radius:14px;
+box-shadow:0 20px 40px rgba(0,0,0,0.15);
+}
