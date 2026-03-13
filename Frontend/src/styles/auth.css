@@ -36,10 +36,16 @@ gap:15px;
 }
 
 .authInput{
+width:100%;
 padding:12px;
-border-radius:8px;
 border:1px solid #ccc;
+border-radius:8px;
 font-size:14px;
+outline:none;
+}
+
+.authInput:focus{
+border-color:#0095f6;
 }
 
 .authBtn{
