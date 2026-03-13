@@ -9,6 +9,17 @@
 --story-bg:#ffffff;
 }
 
+:root[data-theme="light"]{
+  --bg:#ffffff;
+  --bg-soft:#f5f6f8;
+  --card:#ffffff;
+  --text:#111111;
+  --muted:#666666;
+  --line:rgba(0,0,0,0.08);
+  --nav:rgba(255,255,255,0.92);
+  --story-bg:#ffffff;
+}
+
 :root[data-theme="dark"]{
 --bg:#000000;
 --bg-soft:#0e0f12;
@@ -224,7 +235,7 @@ body,
 
 .authShell {
   width: 100%;
-  max-width: 1060px;
+  max-width: 100%px;
   margin: auto;
   display: grid;
   grid-template-columns: 1.05fr 0.95fr;
@@ -359,7 +370,9 @@ flex-wrap:wrap;
 .authForm{
 display:flex;
 flex-direction:column;
-align-items:center;
+gap:14px;
+width:100%;
+align-items:stretch;
 }
 
 .authLabel {
@@ -406,12 +419,8 @@ align-items:center;
   box-shadow:0 0 0 2px rgba(139,92,246,.25);
 }
 
-  .authBtn{
-
+.authBtn{
 width:100%;
-max-width:340px;
-margin:12px auto 0;
-
 border-radius:20px;
 padding:14px 18px;
 
@@ -420,23 +429,15 @@ font-weight:700;
 color:white;
 
 cursor:pointer;
-border:1px solid rgba(255,255,255,0.18);
+border:1px solid rgba(255,255,255,0.2);
 
-/* glass background */
-background:rgba(138,63,252,0.55);
-
-backdrop-filter:blur(16px);
--webkit-backdrop-filter:blur(16px);
+background:linear-gradient(135deg,#9c6bff,#6d4dff);
 
 box-shadow:
-0 10px 25px rgba(138,63,252,0.45),
+0 10px 30px rgba(138,63,252,0.45),
 inset 0 1px 1px rgba(255,255,255,0.25);
 
 transition:all .25s ease;
-
-display:block;
-text-align:center;
-
 }
 
 .authBtn:hover{
