@@ -356,9 +356,10 @@ flex-wrap:wrap;
   font-size: 14px;
 }
 
-.authForm {
-  display: grid;
-  gap: 12px;
+.authForm{
+display:flex;
+flex-direction:column;
+align-items:center;
 }
 
 .authLabel {
@@ -406,30 +407,36 @@ flex-wrap:wrap;
 }
 
   .authBtn{
-margin-top:10px;
-width:100%;
-max-width:320px;
-margin-left:auto;
-margin-right:auto;
 
-border:0;
-border-radius:18px;
+width:100%;
+max-width:340px;
+margin:12px auto 0;
+
+border-radius:20px;
 padding:14px 18px;
 
 font-size:16px;
 font-weight:700;
 color:white;
-cursor:pointer;
 
-/* glass effect */
-background:linear-gradient(135deg,#9c6bff,#6d4dff);
-backdrop-filter:blur(12px);
+cursor:pointer;
+border:1px solid rgba(255,255,255,0.18);
+
+/* glass background */
+background:rgba(138,63,252,0.55);
+
+backdrop-filter:blur(16px);
+-webkit-backdrop-filter:blur(16px);
 
 box-shadow:
 0 10px 25px rgba(138,63,252,0.45),
-inset 0 1px 1px rgba(255,255,255,0.2);
+inset 0 1px 1px rgba(255,255,255,0.25);
 
 transition:all .25s ease;
+
+display:block;
+text-align:center;
+
 }
 
 .authBtn:hover{
