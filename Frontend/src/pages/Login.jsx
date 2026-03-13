@@ -1,131 +1,116 @@
-import React, { useState } from "react";
-import { useNavigate, Link, useLocation } from "react-router-dom";
-import { loginApi } from "../api/authApi";
-import { useAuth } from "../context/AuthContext";
+import React, { useState } from "react"
+import { useNavigate } from "react-router-dom"
+import "../styles/auth.css"
+import FlotingInput from "../components/FlotingInput"
 
-export default function Login() {
-  const [identifier, setIdentifier] = useState("");
-  const [password, setPassword] = useState("");
-  const [err, setErr] = useState("");
-  const [loading, setLoading] = useState(false);
+const Login = () => {
 
-  const nav = useNavigate();
-  const loc = useLocation();
-  const { login } = useAuth();
+const navigate = useNavigate()
 
-  const onSubmit = async (e) => {
-    e.preventDefault();
-    setErr("");
+const [identifier,setIdentifier] = useState("")
+const [password,setPassword] = useState("")
+const [loading,setLoading] = useState(false)
+const [error,setError] = useState("")
 
-    const payload = {
-      identifier: String(identifier).trim().toLowerCase(),
-      password: String(password).trim(),
-    };
+const handleLogin = async () => {
 
-    if (!payload.identifier || !payload.password) {
-      setErr("Email/Username aur password dono bhar.");
-      return;
-    }
+try{
 
-    try {
-      setLoading(true);
+setLoading(true)
+setError("")
 
-      const res = await loginApi(payload);
+const res = await fetch(
+process.env.VITE_API_URL + "/auth/login",
+{
+method:"POST",
+headers:{
+"Content-Type":"application/json"
+},
+body:JSON.stringify({
+identifier,
+password
+})
+})
 
-      if (!res?.success) {
-        setErr(res?.message || "Login failed");
-        return;
-      }
+const data = await res.json()
 
-      const token = res?.data?.accessToken || res?.data?.token;
-      const user = res?.data?.user || null;
-
-      if (!token) {
-        setErr("Token missing from response");
-        return;
-      }
-
-      login({ token, user });
-
-      const to = loc.state?.from || "/home";
-      nav(to, { replace: true });
-    } catch (e2) {
-      setErr(e2?.response?.data?.message || e2?.message || "Network error");
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  return (
-    <div className="authPage">
-      <div className="authShell">
-        <div className="authShowcase">
-          <div className="authShowcaseInner">
-            <img className="authPhoneLogo" src="/MangoX.png" alt="MangoX" />
-            <div className="authShowTitle">MangoX</div>
-            <div className="authShowText">
-              Reels, chats, stories aur profile — sab ek clean social app experience me.
-            </div>
-          </div>
-        </div>
-
-        <div className="authPanel">
-          <div className="authCard">
-            <div className="brandRow">
-              <img className="brandLogo" src="/MangoX.png" alt="MangoX" />
-              <div className="brandText">
-                <div className="brandName">MangoX</div>
-                <div className="brandSub">Login karke app continue karo</div>
-              </div>
-            </div>
-
-            {err ? <div className="authErr">{err}</div> : null}
-
-            <form onSubmit={onSubmit} className="authForm">
-              <label className="authLabel">Phone, username, or email</label>
-              <input
-                className="authInput"
-                placeholder="Enter username or email"
-                value={identifier}
-                onChange={(e) => setIdentifier(e.target.value)}
-                autoComplete="username"
-              />
-
-              <label className="authLabel">Password</label>
-              <input
-                className="authInput"
-                placeholder="Enter password"
-                type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                autoComplete="current-password"
-              />
-
-              <button className="authBtn" disabled={loading}>
-                {loading ? "Logging in..." : "Log in"}
-              </button>
-            </form>
-
-            <div className="authDivider">
-              <span />
-              <p>or</p>
-              <span />
-            </div>
-
-            <div className="authLinks authLinksStack">
-              <Link to="/forgot-password">Forgot password?</Link>
-              <Link to="/find-id">Find profile / ID</Link>
-            </div>
-          </div>
-
-          <div className="authCard authMiniCard">
-            <span className="muted">Don’t have an account?</span>
-            <Link to="/signup" className="authInlineLink">
-              Create new account
-            </Link>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
+if(!res.ok){
+throw new Error(data.message || "Login failed")
 }
+
+localStorage.setItem("token",data.token)
+
+navigate("/")
+
+}catch(err){
+
+setError(err.message)
+
+}finally{
+
+setLoading(false)
+
+}
+
+}
+
+return(
+
+<div className="authContainer">
+
+<div className="authBox">
+
+<div className="logo">
+MangoX
+</div>
+
+<FlotingInput
+label="Email, username or phone"
+value={identifier}
+onChange={(e)=>setIdentifier(e.target.value)}
+/>
+
+<FlotingInput
+type="password"
+label="Password"
+value={password}
+onChange={(e)=>setPassword(e.target.value)}
+/>
+
+<button
+className="authButton"
+onClick={handleLogin}
+disabled={loading}
+>
+
+{loading ? "Logging in..." : "Log in"}
+
+</button>
+
+{error && (
+<p className="errorText">{error}</p>
+)}
+
+<div
+className="authLink"
+onClick={()=>navigate("/forgot")}
+>
+Forgot password?
+</div>
+
+<div
+className="authLink"
+onClick={()=>navigate("/signup")}
+>
+Create new account
+</div>
+
+</div>
+
+</div>
+
+)
+
+}
+
+export default Login
