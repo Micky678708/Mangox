@@ -13,23 +13,18 @@ setupInterceptors();
 
 /* SYSTEM THEME AUTO */
 
-const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
+const media = window.matchMedia("(prefers-color-scheme: dark)");
 
-function setTheme(e) {
-  if (e.matches) {
-    document.documentElement.dataset.theme = "dark";
-  } else {
-    document.documentElement.dataset.theme = "light";
-  }
-}
+const setTheme = () => {
+  document.documentElement.dataset.theme =
+    media.matches ? "dark" : "light";
+};
 
-/* initial theme */
-setTheme(mediaQuery);
+setTheme();
 
-/* listen system change */
-mediaQuery.addEventListener("change", setTheme);
+media.addEventListener("change", setTheme);
+
 /* REACT APP */
-
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <BrowserRouter>
