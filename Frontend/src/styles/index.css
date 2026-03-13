@@ -448,9 +448,9 @@ body,
 
 @media (max-width: 920px) {
   .authShell {
-    grid-template-columns: 1fr;
-    max-width: 460px;
-  }
+  grid-template-columns: 1fr;
+  max-width: 420px;
+}
 
   .authShowcase {
     min-height: 260px;
@@ -502,6 +502,15 @@ body,
   .brandName {
     font-size: 28px;
   }
+
+  .brandCenter {
+  justify-content: center;
+}
+
+.brandCenter .brandLogo {
+  width: 72px;
+  height: 72px;
+}
 
   .brandLogo {
     width: 50px;

@@ -59,25 +59,11 @@ export default function Login() {
   return (
     <div className="authPage">
       <div className="authShell">
-        <div className="authShowcase">
-          <div className="authShowcaseInner">
-            <img className="authPhoneLogo" src="/MangoX.png" alt="MangoX" />
-            <div className="authShowTitle">MangoX</div>
-            <div className="authShowText">
-              Reels, chats, stories aur profile — sab ek clean social app experience me.
-            </div>
-          </div>
-        </div>
-
         <div className="authPanel">
           <div className="authCard">
-            <div className="brandRow">
-              <img className="brandLogo" src="/MangoX.png" alt="MangoX" />
-              <div className="brandText">
-                <div className="brandName">MangoX</div>
-                <div className="brandSub">Login karke app continue karo</div>
-              </div>
-            </div>
+            <div className="brandRow brandCenter">
+  <img className="brandLogo" src="/Mangox.png" alt="MangoX" />
+</div>
 
             {err ? <div className="authErr">{err}</div> : null}
 

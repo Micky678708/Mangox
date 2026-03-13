@@ -9,6 +9,10 @@ import "./styles/index.css";
 import { setupInterceptors } from "./api/setupInterceptors";
 setupInterceptors();
 
+const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+
+document.documentElement.dataset.theme = prefersDark ? "dark" : "light";
+
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <BrowserRouter>
