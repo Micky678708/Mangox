@@ -5,24 +5,32 @@ import App from "./App.jsx";
 import { AuthProvider } from "./context/AuthContext.jsx";
 
 import "./styles/index.css";
-// import "./styles/auth.css";
 
 import { setupInterceptors } from "./api/setupInterceptors";
 
 setupInterceptors();
 
-/* SYSTEM THEME AUTO */
-const media = window.matchMedia("(prefers-color-scheme: dark)");
+/* ---------------- SYSTEM THEME AUTO ---------------- */
 
-function applyTheme(){
-document.documentElement.dataset.theme =
-media.matches ? "dark" : "light";
-}
+const setTheme = () => {
+  const isDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
 
-applyTheme();
+  document.documentElement.setAttribute(
+    "data-theme",
+    isDark ? "dark" : "light"
+  );
+};
 
-media.addEventListener("change", applyTheme);
-/* REACT APP */
+/* initial load */
+setTheme();
+
+/* listen system change */
+window
+  .matchMedia("(prefers-color-scheme: dark)")
+  .addEventListener("change", setTheme);
+
+/* ---------------- REACT APP ---------------- */
+
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <BrowserRouter>
