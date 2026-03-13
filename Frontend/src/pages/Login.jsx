@@ -77,11 +77,11 @@ export default function Login() {
               onChange={(e)=>setIdentifier(e.target.value)}
               />
 
-             <label>Phone, username, or email</label>
+             <label>Login in MangoX</label>
 
              </div>
 
-              <label className="authLabel">Password</label>
+              <label className="authLabel"></label>
               
               <div className="authField">
 
