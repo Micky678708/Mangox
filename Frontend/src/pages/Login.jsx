@@ -62,7 +62,7 @@ export default function Login() {
         <div className="authPanel">
           <div className="authCard">
             <div className="brandRow brandCenter">
-  <img className="brandLogo" src="/Mangox.png" alt="MangoX" />
+  <img className="brandLogo" src="/MangoX.png" alt="MangoX" />
 </div>
 
             {err ? <div className="authErr">{err}</div> : null}
