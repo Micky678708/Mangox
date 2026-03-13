@@ -1,23 +1,10 @@
 import client from "./client";
-import { API_URL } from "../utils/url"
 
-export const loginApi = async (payload) => {
-
-const res = await fetch(`${API_URL}/auth/login`,{
-method:"POST",
-headers:{
-"Content-Type":"application/json"
-},
-body:JSON.stringify(payload)
-})
-
-const text = await res.text()
-
-const data = text ? JSON.parse(text) : {}
-
-return data
-
+export async function loginApi(payload) {
+  const { data } = await client.post("/api/auth/login", payload);
+  return data;
 }
+
 export async function signupApi(payload) {
   const { data } = await client.post("/api/auth/signup", payload);
   return data;

@@ -1,4 +1,4 @@
-.authContainer{
+.authPage{
 display:flex;
 justify-content:center;
 align-items:center;
@@ -6,55 +6,43 @@ height:100vh;
 background:#fafafa;
 }
 
-.authBox{
-width:380px;
+.authShell{
 background:white;
 padding:40px;
-border-radius:12px;
-box-shadow:0 5px 20px rgba(0,0,0,0.1);
+border-radius:16px;
+box-shadow:0 20px 40px rgba(0,0,0,0.15);
+width:380px;
 }
 
-.logo{
+.brandRow{
 text-align:center;
-margin-bottom:30px;
-font-size:28px;
+margin-bottom:25px;
+}
+
+.brandLogo{
+width:60px;
+margin-bottom:10px;
+}
+
+.brandName{
+font-size:26px;
 font-weight:700;
 }
 
-.inputBox{
-position:relative;
-margin-bottom:20px;
+.authForm{
+display:flex;
+flex-direction:column;
+gap:15px;
 }
 
-.inputBox input{
-width:100%;
-padding:14px;
+.authInput{
+padding:12px;
 border-radius:8px;
 border:1px solid #ccc;
-outline:none;
 font-size:14px;
 }
 
-.inputBox label{
-position:absolute;
-left:14px;
-top:14px;
-color:#777;
-transition:0.2s;
-pointer-events:none;
-background:white;
-padding:0 4px;
-}
-
-.inputBox input:focus + label,
-.inputBox input:valid + label{
-top:-8px;
-font-size:12px;
-color:#0095f6;
-}
-
-.loginBtn{
-width:100%;
+.authBtn{
 padding:12px;
 border:none;
 border-radius:25px;
@@ -64,23 +52,18 @@ font-weight:600;
 cursor:pointer;
 }
 
-.link{
-text-align:center;
-margin-top:15px;
-color:#0095f6;
-cursor:pointer;
-}
-.errorText{
-color:red;
-font-size:13px;
-margin-top:10px;
-text-align:center;
+.authBtn:hover{
+background:#007ad9;
 }
 
-.authBox{
-width:380px;
-background:white;
-padding:40px;
-border-radius:14px;
-box-shadow:0 20px 40px rgba(0,0,0,0.15);
+.authLinks{
+margin-top:15px;
+display:flex;
+justify-content:space-between;
+font-size:13px;
+}
+
+.authLinks a{
+color:#0095f6;
+text-decoration:none;
 }
