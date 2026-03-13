@@ -12,18 +12,16 @@ import { setupInterceptors } from "./api/setupInterceptors";
 setupInterceptors();
 
 /* SYSTEM THEME AUTO */
-
 const media = window.matchMedia("(prefers-color-scheme: dark)");
 
-const setTheme = () => {
-  document.documentElement.dataset.theme =
-    media.matches ? "dark" : "light";
-};
+function applyTheme(){
+document.documentElement.dataset.theme =
+media.matches ? "dark" : "light";
+}
 
-setTheme();
+applyTheme();
 
-media.addEventListener("change", setTheme);
-
+media.addEventListener("change", applyTheme);
 /* REACT APP */
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>

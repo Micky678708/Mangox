@@ -220,14 +220,15 @@ body,
 .authPage {
   min-height: 100vh;
   background:
-    radial-gradient(circle at top left, rgba(254, 218, 117, 0.12), transparent 22%),
-    radial-gradient(circle at top right, rgba(214, 41, 118, 0.16), transparent 24%),
+    radial-gradient(circle at top left, rgba(254,218,117,.12), transparent 22%),
+    radial-gradient(circle at top right, rgba(214,41,118,.16), transparent 24%),
     linear-gradient(180deg, var(--bg) 0%, var(--bg-soft) 100%);
+    
   color: var(--text);
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 24px 20px;
+  padding: 40px 20px;
 }
 
 .authShell {
@@ -309,15 +310,15 @@ body,
   box-shadow: 0 14px 40px rgba(0, 0, 0, 0.12);
 }
 
-.authMiniCard {
-  margin-top: 16px;
-  padding: 18px 20px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
-  flex-wrap: nowrap;
-  text-align: center;
+.authMiniCard{
+margin-top:16px;
+padding:18px 20px;
+display:flex;
+align-items:center;
+justify-content:center;
+gap:8px;
+text-align:center;
+flex-wrap:wrap;
 }
 
 .brandRow {
@@ -520,10 +521,11 @@ body,
   }
 }
 
-@media (max-width: 520px) {
-  .authPage {
-    padding: 14px 10px 24px;
-  }
+@media (max-width:520px){
+
+.authPage{
+padding:14px 10px 24px;
+}
 
   .authShowcase {
     min-height: 210px;
@@ -645,16 +647,16 @@ body,
 }
 /* Desktop layout */
 
-@media (min-width: 900px) {
+@media (min-width:900px){
 
-  .authPage {
-    padding: 60px 20px;
-  }
+.authPage{
+padding:60px 20px;
+}
 
-  .authShell {
-    max-width: 420px;
-    width: 100%;
-    margin: auto;
-  }
+.authShell{
+max-width:460px;
+width:100%;
+margin:auto;
+}
 
 }
