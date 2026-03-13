@@ -1,4 +1,4 @@
-:root [data-theme="dark"]{
+:root {
   --bg: #ffffff;
   --bg-soft: #f5f6f8;
   --card: #ffffff;
@@ -8,7 +8,6 @@
   --nav: rgba(255, 255, 255, 0.92);
   --story-bg: #ffffff;
 }
-
 :root[data-theme="light"] {
   --bg: #ffffff;
   --bg-soft: #f5f6f8;
@@ -18,6 +17,16 @@
   --line: rgba(0,0,0,0.08);
   --nav: rgba(255,255,255,0.92);
   --story-bg: #ffffff;
+}
+:root[data-theme="dark"] {
+  --bg: #000000;
+  --bg-soft: #0e0f12;
+  --card: #111216;
+  --text: #ffffff;
+  --muted: #a9acb4;
+  --line: rgba(255, 255, 255, 0.08);
+  --nav: rgba(10, 10, 12, 0.92);
+  --story-bg: #0d0f14;
 }
 
 html,
