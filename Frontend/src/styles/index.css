@@ -224,9 +224,10 @@ body,
     radial-gradient(circle at top right, rgba(214, 41, 118, 0.16), transparent 24%),
     linear-gradient(180deg, var(--bg) 0%, var(--bg-soft) 100%);
   color: var(--text);
-  display: grid;
-  place-items: center;
-  padding: 24px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
 }
 
 .authShell {
@@ -289,7 +290,7 @@ body,
 .authPanel {
   width: 100%;
   max-width: 420px;
-  justify-self: center;
+  margin: auto;
 }
 
 .authCard {
@@ -299,6 +300,7 @@ body,
   border-radius: 28px;
   padding: 28px 24px;
   box-shadow: 0 14px 40px rgba(0, 0, 0, 0.12);
+  backdrop-filter: blur(12px);
 }
 
 .authMiniCard {
@@ -632,4 +634,19 @@ body,
 .menuPopup,
 .plusMenu {
   z-index: 50;
+}
+/* Desktop layout */
+
+@media (min-width: 900px) {
+
+  .authPage {
+    padding: 60px 20px;
+  }
+
+  .authShell {
+    max-width: 420px;
+    width: 100%;
+    margin: auto;
+  }
+
 }
