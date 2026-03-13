@@ -1,131 +1,60 @@
-import React, { useState } from "react";
-import { useNavigate, Link, useLocation } from "react-router-dom";
-import { loginApi } from "../api/authApi";
-import { useAuth } from "../context/AuthContext";
+import React, { useState } from "react"
+import FlotingInput from "../components/FlotingInput"
+import "../styles/auth.css"
+import { useNavigate } from "react-router-dom"
 
-export default function Login() {
-  const [identifier, setIdentifier] = useState("");
-  const [password, setPassword] = useState("");
-  const [err, setErr] = useState("");
-  const [loading, setLoading] = useState(false);
+const Login = () => {
 
-  const nav = useNavigate();
-  const loc = useLocation();
-  const { login } = useAuth();
+const navigate = useNavigate()
 
-  const onSubmit = async (e) => {
-    e.preventDefault();
-    setErr("");
+const [username,setUsername] = useState("")
+const [password,setPassword] = useState("")
 
-    const payload = {
-      identifier: String(identifier).trim().toLowerCase(),
-      password: String(password).trim(),
-    };
+return (
 
-    if (!payload.identifier || !payload.password) {
-      setErr("Email/Username aur password dono bhar.");
-      return;
-    }
+<div className="authContainer">
 
-    try {
-      setLoading(true);
+<div className="authBox">
 
-      const res = await loginApi(payload);
+<div className="logo">MangoX</div>
 
-      if (!res?.success) {
-        setErr(res?.message || "Login failed");
-        return;
-      }
+<FlotingInput
+label="Mobile number, username or email"
+value={username}
+onChange={(e)=>setUsername(e.target.value)}
+/>
 
-      const token = res?.data?.accessToken || res?.data?.token;
-      const user = res?.data?.user || null;
+<FlotingInput
+type="password"
+label="Password"
+value={password}
+onChange={(e)=>setPassword(e.target.value)}
+/>
 
-      if (!token) {
-        setErr("Token missing from response");
-        return;
-      }
+<button className="authButton">
+Log in
+</button>
 
-      login({ token, user });
+<div
+className="authLink"
+onClick={()=>navigate("/forgot")}
+>
+Forgot password?
+</div>
 
-      const to = loc.state?.from || "/home";
-      nav(to, { replace: true });
-    } catch (e2) {
-      setErr(e2?.response?.data?.message || e2?.message || "Network error");
-    } finally {
-      setLoading(false);
-    }
-  };
+<div
+className="authLink"
+onClick={()=>navigate("/signup")}
+>
+Create new account
+</div>
 
-  return (
-    <div className="authPage">
-      <div className="authShell">
-        <div className="authShowcase">
-          <div className="authShowcaseInner">
-            <img className="authPhoneLogo" src="/MangoX.png" alt="MangoX" />
-            <div className="authShowTitle">MangoX</div>
-            <div className="authShowText">
-              Reels, chats, stories aur profile — sab ek clean social app experience me.
-            </div>
-          </div>
-        </div>
+</div>
 
-        <div className="authPanel">
-          <div className="authCard">
-            <div className="brandRow">
-              <img className="brandLogo" src="/MangoX.png" alt="MangoX" />
-              <div className="brandText">
-                <div className="brandName">MangoX</div>
-                <div className="brandSub">Login karke app continue karo</div>
-              </div>
-            </div>
+</div>
 
-            {err ? <div className="authErr">{err}</div> : null}
+)
 
-            <form onSubmit={onSubmit} className="authForm">
-              <label className="authLabel">Phone, username, or email</label>
-              <input
-                className="authInput"
-                placeholder="Enter username or email"
-                value={identifier}
-                onChange={(e) => setIdentifier(e.target.value)}
-                autoComplete="username"
-              />
-
-              <label className="authLabel">Password</label>
-              <input
-                className="authInput"
-                placeholder="Enter password"
-                type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                autoComplete="current-password"
-              />
-
-              <button className="authBtn" disabled={loading}>
-                {loading ? "Logging in..." : "Log in"}
-              </button>
-            </form>
-
-            <div className="authDivider">
-              <span />
-              <p>or</p>
-              <span />
-            </div>
-
-            <div className="authLinks authLinksStack">
-              <Link to="/forgot-password">Forgot password?</Link>
-              <Link to="/find-id">Find profile / ID</Link>
-            </div>
-          </div>
-
-          <div className="authCard authMiniCard">
-            <span className="muted">Don’t have an account?</span>
-            <Link to="/signup" className="authInlineLink">
-              Create new account
-            </Link>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
 }
+
+export default Login
