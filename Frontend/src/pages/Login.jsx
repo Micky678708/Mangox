@@ -115,9 +115,9 @@ export default function Login() {
 
           <div className="authCard authMiniCard">
             <span className="muted">Don’t have an account?</span>
-            <Link to="/signup" className="authInlineLink">
-              Create new account
-            </Link>
+            <Link to="/signup">
+             Create new account
+             </Link>
           </div>
         </div>
       </div>
