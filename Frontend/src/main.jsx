@@ -14,25 +14,10 @@ setupInterceptors();
 
 const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
 
-function applyTheme() {
 
-  const savedTheme = localStorage.getItem("theme");
-
-  if (savedTheme) {
-    document.documentElement.dataset.theme = savedTheme;
-    return;
-  }
-
-  document.documentElement.dataset.theme =
-    mediaQuery.matches ? "dark" : "light";
-}
-
-/* initial load */
-applyTheme();
-
-/* system change listener */
 mediaQuery.addEventListener("change", () => {
-  applyTheme();
+  const systemDark = mediaQuery.matches;
+  document.documentElement.dataset.theme = systemDark ? "dark" : "light";
 });
 /* ---------------- REACT APP ---------------- */
 
