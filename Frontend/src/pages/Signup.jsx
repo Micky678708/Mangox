@@ -1,43 +1,41 @@
-import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import React,{useState} from "react"
+import {useNavigate} from "react-router-dom"
 
-export default function Signup() {
+export default function Signup(){
 
-const nav = useNavigate();
+const nav = useNavigate()
 
-const [form,setForm] = useState({
-name:"",
-username:"",
-email:"",
-password:"",
-confirmPassword:""
-});
+const [step,setStep] = useState(1)
 
-const [err,setErr] = useState("");
+const [email,setEmail] = useState("")
+const [username,setUsername] = useState("")
+const [name,setName] = useState("")
+const [password,setPassword] = useState("")
 
-const handleChange = (e)=>{
-setForm({
-...form,
-[e.target.name]:e.target.value
-});
-};
+const [usernameOk,setUsernameOk] = useState(false)
+const [usernameConfirmed,setUsernameConfirmed] = useState(false)
 
-const onSubmit = (e)=>{
-e.preventDefault();
+const checkUsername = async () =>{
 
-if(form.password !== form.confirmPassword){
-setErr("Passwords do not match");
-return;
+/* future API */
+
+if(username.length > 3){
+setUsernameOk(true)
 }
 
-/* future API call */
+}
 
-console.log("Signup data",form);
+const createAccount = async () =>{
 
-nav("/login");
-};
+/* backend API */
 
-return (
+localStorage.setItem("token","demo")
+
+nav("/home")
+
+}
+
+return(
 
 <div className="authPage">
 
@@ -45,81 +43,119 @@ return (
 
 <div className="authCard">
 
-<div className="brandRow brandCenter">
-<img className="brandLogo" src="/MangoX.png" alt="mangoX"/>
-</div>
+{/* STEP 1 */}
 
-<label className="authLabel">Create MangoX account</label>
+{step === 1 && (
 
-{err && <div className="authErr">{err}</div>}
+<div>
 
-<form onSubmit={onSubmit} className="authForm">
+<h2>Signup</h2>
 
-<div className="authField">
 <input
-name="name"
-placeholder="Full name"
-value={form.name}
-onChange={handleChange}
-required
+className="authInput"
+placeholder="Phone or Email"
+value={email}
+onChange={e=>setEmail(e.target.value)}
 />
-</div>
 
-<div className="authField">
-<input
-name="username"
-placeholder="Username"
-value={form.username}
-onChange={handleChange}
-required
-/>
-</div>
-
-<div className="authField">
-<input
-name="email"
-placeholder="Email or phone"
-value={form.email}
-onChange={handleChange}
-required
-/>
-</div>
-
-<div className="authField">
-<input
-type="password"
-name="password"
-placeholder="Password"
-value={form.password}
-onChange={handleChange}
-required
-/>
-</div>
-
-<div className="authField">
-<input
-type="password"
-name="confirmPassword"
-placeholder="Confirm password"
-value={form.confirmPassword}
-onChange={handleChange}
-required
-/>
-</div>
-
-<button className="authBtn">
-Create account
+<button
+className="authBtn"
+onClick={()=>setStep(2)}
+>
+Continue
 </button>
 
-</form>
+</div>
 
-<div className="authLinks center">
+)}
 
-<span>Already have an account?</span>
+{/* STEP 2 */}
 
-<Link to="/login">
-Log in
-</Link>
+{step === 2 && (
+
+<div>
+
+<input
+className="authInput"
+placeholder="Username"
+value={username}
+onChange={e=>setUsername(e.target.value)}
+onBlur={checkUsername}
+/>
+
+{usernameOk && !usernameConfirmed && (
+
+<div style={{color:"green",marginTop:"6px"}}>
+✔ Username available
+</div>
+
+)}
+
+{usernameOk && !usernameConfirmed && (
+
+<button
+className="authBtn"
+onClick={()=>setUsernameConfirmed(true)}
+>
+Confirm
+</button>
+
+)}
+
+{usernameConfirmed && (
+
+<div style={{marginTop:"15px"}}>
+
+<input
+className="authInput"
+placeholder="Full Name"
+value={name}
+onChange={e=>setName(e.target.value)}
+/>
+
+<button
+className="authBtn"
+onClick={()=>setStep(3)}
+>
+Continue
+</button>
+
+</div>
+
+)}
+
+</div>
+
+)}
+
+{/* STEP 3 */}
+
+{step === 3 && (
+
+<div>
+
+<input
+className="authInput"
+type="password"
+placeholder="Password"
+value={password}
+onChange={e=>setPassword(e.target.value)}
+/>
+
+<p style={{fontSize:"13px",opacity:.7}}>
+Min 6 characters
+</p>
+
+<button
+className="authBtn"
+onClick={createAccount}
+>
+Create Account
+</button>
+
+</div>
+
+)}
 
 </div>
 
@@ -127,7 +163,6 @@ Log in
 
 </div>
 
-</div>
+)
 
-);
 }
