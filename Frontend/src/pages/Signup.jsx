@@ -14,14 +14,8 @@ username:"",
 name:""
 })
 
-const [usernameStatus,setUsernameStatus] = useState("")
-
-const handleChange = (e)=>{
-setForm({
-...form,
-[e.target.name]:e.target.value
-})
-}
+const [usernameStatus,setUsernameStatus] = useState("");
+const [checkingUsername,setCheckingUsername] = useState(false);
 
 const checkUsername = async(username)=>{
 
@@ -32,7 +26,10 @@ return
 
 try{
 
-const res = await fetch(`https://mangox-jhei.onrender.com/api/auth/check-username/${username}`)
+setCheckingUsername(true)
+
+const res = await fetch(`${API}/api/auth/check-username/${username}`)
+
 const data = await res.json()
 
 if(data.available){
@@ -41,8 +38,11 @@ setUsernameStatus("available")
 setUsernameStatus("taken")
 }
 
+setCheckingUsername(false)
+
 }catch(err){
 console.log(err)
+setCheckingUsername(false)
 }
 
 }
@@ -67,6 +67,21 @@ return false
 }
 
 return true
+}
+
+const validateAge = ()=>{
+
+const currentYear = new Date().getFullYear()
+
+const age = currentYear - parseInt(form.year)
+
+if(age < 15){
+alert("You must be at least 15 years old")
+return false
+}
+
+return true
+
 }
 
 const handleSubmit = async(e)=>{
@@ -136,6 +151,12 @@ placeholder="Password"
 onChange={handleChange}
 />
 
+<p className="passStrength">
+
+Password strength: {getPasswordStrength(form.password)}
+
+</p>
+
 <p>Date of Birth</p>
 
 <div className="dobRow">
@@ -166,8 +187,29 @@ placeholder="Username"
 onChange={(e)=>{
 handleChange(e)
 checkUsername(e.target.value)
+const getPasswordStrength = (password)=>{
+
+if(password.length < 6){
+return "Weak"
+}
+
+if(
+/[A-Z]/.test(password) &&
+/[0-9]/.test(password) &&
+/[^A-Za-z0-9]/.test(password)
+){
+return "Strong"
+}
+
+return "Medium"
+
+}
 }}
 />
+
+{checkingUsername && (
+<p style={{color:"#888"}}>Checking username...</p>
+)}
 
 {usernameStatus==="available" && (
 <p style={{color:"green"}}>✔ Username available</p>
