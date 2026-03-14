@@ -678,5 +678,52 @@ max-width:460px;
 width:100%;
 margin:auto;
 }
+}
+
+.signupPage{
+
+min-height:100vh;
+display:flex;
+align-items:center;
+justify-content:center;
+
+background:linear-gradient(180deg,#f6f6ff,#ffffff);
+
+}
+
+.signupCard{
+
+width:440px;
+padding:30px;
+
+background:var(--card);
+
+border-radius:20px;
+
+box-shadow:0 20px 40px rgba(0,0,0,.08);
+
+}
+
+.signupCard h2{
+margin-bottom:20px;
+}
+
+.signupRow{
+
+display:flex;
+gap:10px;
+margin-bottom:12px;
+
+}
+
+.signupCard input{
+
+width:100%;
+padding:12px;
+
+border-radius:12px;
+border:1px solid var(--line);
+
+background:var(--bg-soft);
 
 }

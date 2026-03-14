@@ -1,163 +1,99 @@
 import React,{useState} from "react"
-import {useNavigate} from "react-router-dom"
 
 export default function Signup(){
 
-const nav = useNavigate()
+const [form,setForm] = useState({
+phone:"",
+email:"",
+password:"",
+dob:"",
+username:"",
+name:""
+})
 
-const [step,setStep] = useState(1)
+const handleChange = (e)=>{
+setForm({
+...form,
+[e.target.name]:e.target.value
+})
+}
 
-const [email,setEmail] = useState("")
-const [username,setUsername] = useState("")
-const [name,setName] = useState("")
-const [password,setPassword] = useState("")
+const handleSubmit = (e)=>{
+e.preventDefault()
 
-const [usernameOk,setUsernameOk] = useState(false)
-const [usernameConfirmed,setUsernameConfirmed] = useState(false)
-
-const checkUsername = async () =>{
+console.log(form)
 
 /* future API */
-
-if(username.length > 3){
-setUsernameOk(true)
-}
-
-}
-
-const createAccount = async () =>{
-
-/* backend API */
-
-localStorage.setItem("token","demo")
-
-nav("/home")
-
 }
 
 return(
 
-<div className="authPage">
+<div className="signupPage">
 
-<div className="authShell">
+<div className="signupCard">
 
-<div className="authCard">
+<h2>Create MangoX account</h2>
 
-{/* STEP 1 */}
+<form onSubmit={handleSubmit}>
 
-{step === 1 && (
+{/* row 1 */}
 
-<div>
-
-<h2>Signup</h2>
+<div className="signupRow">
 
 <input
-className="authInput"
-placeholder="Phone or Email"
-value={email}
-onChange={e=>setEmail(e.target.value)}
+name="phone"
+placeholder="Phone number"
+onChange={handleChange}
 />
 
-<button
-className="authBtn"
-onClick={()=>setStep(2)}
->
-Continue
-</button>
-
-</div>
-
-)}
-
-{/* STEP 2 */}
-
-{step === 2 && (
-
-<div>
-
 <input
-className="authInput"
-placeholder="Username"
-value={username}
-onChange={e=>setUsername(e.target.value)}
-onBlur={checkUsername}
+name="email"
+placeholder="Email"
+onChange={handleChange}
 />
 
-{usernameOk && !usernameConfirmed && (
-
-<div style={{color:"green",marginTop:"6px"}}>
-✔ Username available
 </div>
 
-)}
-
-{usernameOk && !usernameConfirmed && (
-
-<button
-className="authBtn"
-onClick={()=>setUsernameConfirmed(true)}
->
-Confirm
-</button>
-
-)}
-
-{usernameConfirmed && (
-
-<div style={{marginTop:"15px"}}>
+{/* row 2 */}
 
 <input
-className="authInput"
-placeholder="Full Name"
-value={name}
-onChange={e=>setName(e.target.value)}
-/>
-
-<button
-className="authBtn"
-onClick={()=>setStep(3)}
->
-Continue
-</button>
-
-</div>
-
-)}
-
-</div>
-
-)}
-
-{/* STEP 3 */}
-
-{step === 3 && (
-
-<div>
-
-<input
-className="authInput"
+name="password"
 type="password"
 placeholder="Password"
-value={password}
-onChange={e=>setPassword(e.target.value)}
+onChange={handleChange}
 />
 
-<p style={{fontSize:"13px",opacity:.7}}>
-Min 6 characters
-</p>
+{/* row 3 */}
 
-<button
-className="authBtn"
-onClick={createAccount}
->
+<input
+name="dob"
+type="date"
+onChange={handleChange}
+/>
+
+{/* row 4 */}
+
+<div className="signupRow">
+
+<input
+name="username"
+placeholder="Username"
+onChange={handleChange}
+/>
+
+<input
+name="name"
+placeholder="Full name"
+onChange={handleChange}
+/>
+
+</div>
+
+<button className="authBtn">
 Create Account
 </button>
 
-</div>
-
-)}
-
-</div>
+</form>
 
 </div>
 
