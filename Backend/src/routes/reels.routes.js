@@ -4,7 +4,6 @@ import {
   getReels,
   getReelById,
   likeReel,
-  commentReel,
   saveReel,
   unsaveReel,
   uploadReel, // controller
