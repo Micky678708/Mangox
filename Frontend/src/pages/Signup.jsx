@@ -1,9 +1,10 @@
 import React,{useState} from "react"
-import API from "../utils/api";
+
+const API="https://mangox-jhei.onrender.com"
 
 export default function Signup(){
 
-const [form,setForm] = useState({
+const [form,setForm]=useState({
 phone:"",
 email:"",
 password:"",
@@ -14,12 +15,19 @@ username:"",
 name:""
 })
 
-const [usernameStatus,setUsernameStatus] = useState("");
-const [checkingUsername,setCheckingUsername] = useState(false);
+const [usernameStatus,setUsernameStatus]=useState("")
+const [checkingUsername,setCheckingUsername]=useState(false)
 
-const checkUsername = async(username)=>{
+const handleChange=(e)=>{
+setForm({
+...form,
+[e.target.name]:e.target.value
+})
+}
 
-if(username.length < 3){
+const checkUsername=async(username)=>{
+
+if(username.length<3){
 setUsernameStatus("")
 return
 }
@@ -28,9 +36,8 @@ try{
 
 setCheckingUsername(true)
 
-const res = await fetch(`${API}/api/auth/check-username/${username}`)
-
-const data = await res.json()
+const res=await fetch(`${API}/api/auth/check-username/${username}`)
+const data=await res.json()
 
 if(data.available){
 setUsernameStatus("available")
@@ -47,21 +54,38 @@ setCheckingUsername(false)
 
 }
 
-const validateForm = ()=>{
+const getPasswordStrength=(password)=>{
+
+if(password.length<6){
+return "Weak"
+}
+
+if(
+/[A-Z]/.test(password) &&
+/[0-9]/.test(password) &&
+/[^A-Za-z0-9]/.test(password)
+){
+return "Strong"
+}
+
+return "Medium"
+}
+
+const validateForm=()=>{
 
 if(!form.phone && !form.email){
 alert("Phone or Email required")
 return false
 }
 
-if(form.password.length < 6){
+if(form.password.length<6){
 alert("Password must be 6 characters")
 return false
 }
 
-const age = new Date().getFullYear() - parseInt(form.year)
+const age=new Date().getFullYear()-parseInt(form.year)
 
-if(age < 15){
+if(age<15){
 alert("Age must be 15+")
 return false
 }
@@ -69,22 +93,7 @@ return false
 return true
 }
 
-const validateAge = ()=>{
-
-const currentYear = new Date().getFullYear()
-
-const age = currentYear - parseInt(form.year)
-
-if(age < 15){
-alert("You must be at least 15 years old")
-return false
-}
-
-return true
-
-}
-
-const handleSubmit = async(e)=>{
+const handleSubmit=async(e)=>{
 
 e.preventDefault()
 
@@ -92,32 +101,25 @@ if(!validateForm()) return
 
 try{
 
-const res = await fetch("https://mangox-jhei.onrender.com/api/auth/signup", {
-  method: "POST",
-  headers: {
-    "Content-Type": "application/json"
-  },
-  body: JSON.stringify(form)
-});
+const res=await fetch(`${API}/api/auth/signup`,{
+method:"POST",
+headers:{
+"Content-Type":"application/json"
+},
+body:JSON.stringify(form)
+})
 
-const data = await res.json()
+const data=await res.json()
 
 if(data.token){
-
 localStorage.setItem("token",data.token)
-
 window.location.href="/"
-
 }else{
-
 alert(data.message)
-
 }
 
 }catch(err){
-
 console.log(err)
-
 }
 
 }
@@ -152,9 +154,7 @@ onChange={handleChange}
 />
 
 <p className="passStrength">
-
 Password strength: {getPasswordStrength(form.password)}
-
 </p>
 
 <p>Date of Birth</p>
@@ -187,23 +187,6 @@ placeholder="Username"
 onChange={(e)=>{
 handleChange(e)
 checkUsername(e.target.value)
-const getPasswordStrength = (password)=>{
-
-if(password.length < 6){
-return "Weak"
-}
-
-if(
-/[A-Z]/.test(password) &&
-/[0-9]/.test(password) &&
-/[^A-Za-z0-9]/.test(password)
-){
-return "Strong"
-}
-
-return "Medium"
-
-}
 }}
 />
 
