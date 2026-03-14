@@ -17,8 +17,11 @@ if (!ACCOUNT_SID || !AUTH_TOKEN || !FROM) {
   });
 }
 console.log("TWILIO SID prefix:", (process.env.TWILIO_ACCOUNT_SID || "").slice(0, 2));
+
 console.log("TWILIO FROM:", process.env.TWILIO_FROM);
+
 console.log("HAS TOKEN:", !!process.env.TWILIO_AUTH_TOKEN);
+
 const client = null;
 
 function toE164(phone) {

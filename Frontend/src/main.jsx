@@ -7,9 +7,10 @@ import { AuthProvider } from "./context/AuthContext.jsx";
 import "./styles/index.css";
 
 import { setupInterceptors } from "./api/setupInterceptors";
-setupInterceptors();
-/* ---------------- REACT APP ---------------- */
 
+setupInterceptors();
+
+/* ---------------- REACT APP ---------------- */
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <BrowserRouter>
