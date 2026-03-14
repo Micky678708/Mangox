@@ -232,7 +232,7 @@ transition:background .3s ease,color .3s ease;
 }
 
   .authShell{
-width: 420px;
+width:100%;
 max-width:420px;
 margin:auto;
 }
@@ -423,11 +423,7 @@ letter-spacing:.3px;
 
 color:white;
 
-background:linear-gradient(
-135deg,
-rgba(167,139,250,.85),
-rgba(124,58,237,.85)
-);
+background:linear-gradient(135deg,#a78bfa,#7c3aed);
 
 backdrop-filter: blur(10px);
 -webkit-backdrop-filter: blur(10px);
