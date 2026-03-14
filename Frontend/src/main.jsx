@@ -12,12 +12,11 @@ setupInterceptors();
 
 /* -------- THEME SYSTEM (STABLE) -------- */
 
-const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
+const media = window.matchMedia("(prefers-color-scheme: dark)");
 
-
-mediaQuery.addEventListener("change", () => {
-  const systemDark = mediaQuery.matches;
-  document.documentElement.dataset.theme = systemDark ? "dark" : "light";
+media.addEventListener("change", (e) => {
+const newTheme = e.matches ? "dark" : "light";
+document.documentElement.dataset.theme = newTheme;
 });
 /* ---------------- REACT APP ---------------- */
 
