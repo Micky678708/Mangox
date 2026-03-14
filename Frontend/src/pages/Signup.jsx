@@ -6,7 +6,9 @@ const [form,setForm] = useState({
 phone:"",
 email:"",
 password:"",
-dob:"",
+day:"",
+month:"",
+year:"",
 username:"",
 name:""
 })
@@ -22,8 +24,6 @@ const handleSubmit = (e)=>{
 e.preventDefault()
 
 console.log(form)
-
-/* future API */
 }
 
 return(
@@ -35,10 +35,6 @@ return(
 <h2>Create MangoX account</h2>
 
 <form onSubmit={handleSubmit}>
-
-{/* row 1 */}
-
-<div className="signupRow">
 
 <input
 name="phone"
@@ -52,10 +48,6 @@ placeholder="Email"
 onChange={handleChange}
 />
 
-</div>
-
-{/* row 2 */}
-
 <input
 name="password"
 type="password"
@@ -63,17 +55,32 @@ placeholder="Password"
 onChange={handleChange}
 />
 
-{/* row 3 */}
+<p style={{marginBottom:"6px"}}>Date of Birth</p>
+
+<div className="dobRow">
 
 <input
-name="dob"
-type="date"
+name="day"
+placeholder="DD"
+maxLength="2"
 onChange={handleChange}
 />
 
-{/* row 4 */}
+<input
+name="month"
+placeholder="MM"
+maxLength="2"
+onChange={handleChange}
+/>
 
-<div className="signupRow">
+<input
+name="year"
+placeholder="YYYY"
+maxLength="4"
+onChange={handleChange}
+/>
+
+</div>
 
 <input
 name="username"
@@ -87,10 +94,10 @@ placeholder="Full name"
 onChange={handleChange}
 />
 
-</div>
+<button className="signupBtn">
 
-<button className="authBtn">
 Create Account
+
 </button>
 
 </form>
