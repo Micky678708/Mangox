@@ -10,24 +10,30 @@ import { setupInterceptors } from "./api/setupInterceptors";
 
 setupInterceptors();
 
-/* -------- SYSTEM THEME AUTO (STABLE) -------- */
+/* -------- THEME SYSTEM (STABLE) -------- */
 
 const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
 
-function setSystemTheme() {
-  const isDark = mediaQuery.matches;
+function applyTheme() {
 
-  document.documentElement.setAttribute(
-    "data-theme",
-    isDark ? "dark" : "light"
-  );
+  const savedTheme = localStorage.getItem("theme");
+
+  if (savedTheme) {
+    document.documentElement.dataset.theme = savedTheme;
+    return;
+  }
+
+  document.documentElement.dataset.theme =
+    mediaQuery.matches ? "dark" : "light";
 }
 
-/* first load */
-setSystemTheme();
+/* initial load */
+applyTheme();
 
-/* listen system change */
-mediaQuery.addEventListener("change", setSystemTheme);
+/* system change listener */
+mediaQuery.addEventListener("change", () => {
+  applyTheme();
+});
 /* ---------------- REACT APP ---------------- */
 
 ReactDOM.createRoot(document.getElementById("root")).render(

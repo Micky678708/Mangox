@@ -9,17 +9,6 @@
 --story-bg:#ffffff;
 }
 
-:root[data-theme="light"]{
-  --bg:#ffffff;
-  --bg-soft:#f5f6f8;
-  --card:#ffffff;
-  --text:#111111;
-  --muted:#666666;
-  --line:rgba(0,0,0,0.08);
-  --nav:rgba(255,255,255,0.92);
-  --story-bg:#ffffff;
-}
-
 :root[data-theme="dark"]{
 --bg:#000000;
 --bg-soft:#0e0f12;
