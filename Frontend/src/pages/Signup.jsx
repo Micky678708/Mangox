@@ -46,7 +46,7 @@ return (
 <div className="authCard">
 
 <div className="brandRow brandCenter">
-<img className="brandLogo" src="/Mangox.png" alt="mangox"/>
+<img className="brandLogo" src="/MangoX.png" alt="mangoX"/>
 </div>
 
 <label className="authLabel">Create MangoX account</label>
