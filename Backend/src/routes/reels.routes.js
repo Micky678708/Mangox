@@ -2,7 +2,6 @@ import express from "express";
 import protect from "../middleware/auth.middleware.js";
 import {
   getReels,
-  getReelById,
   likeReel,
   saveReel,
   unsaveReel,
