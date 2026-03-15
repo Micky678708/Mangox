@@ -1,39 +1,34 @@
-import express from "express";
-import protect from "../middleware/auth.middleware.js";
-// import {
-//   getReels,
-//   likeReel,
-//   saveReel,
-//   unsaveReel,
-//   uploadReel, // controller
-// } from "../controllers/reels.controller.js";
+import express from "express"
+import protect from "../middleware/auth.middleware.js"
 
-import { uploadReelVideo } from "../config/multer.js";
+import {
+getReels,
+getReelById,
+likeReel,
+commentReel,
+saveReel,
+unsaveReel,
+uploadReel
+} from "../controllers/reels.controller.js"
 
-const router = express.Router();
+import { uploadReelVideo } from "../config/multer.js"
 
-router.get("/", protect, getReels);
-router.get("/:id", protect, getReelById);
+const router = express.Router()
 
-router.post("/:id/like", protect, likeReel);
-router.post("/:id/comment", protect, commentReel);
-router.post("/:id/save", protect, saveReel);
-router.post("/:id/unsave", protect, unsaveReel);
+router.get("/", protect, getReels)
+router.get("/:id", protect, getReelById)
 
-// ✅ UPLOAD (field name must be "video")
-router.post("/upload", protect, uploadReelVideo.single("video"), uploadReel);
-router.get("/search",async(req,res)=>{
+router.post("/:id/like", protect, likeReel)
+router.post("/:id/comment", protect, commentReel)
 
-const q = req.query.q
+router.post("/:id/save", protect, saveReel)
+router.post("/:id/unsave", protect, unsaveReel)
 
-const users = await User.find({
-username:{
-$regex:q,
-$options:"i"
-}
-}).limit(10)
+router.post(
+"/upload",
+protect,
+uploadReelVideo.single("video"),
+uploadReel
+)
 
-res.json(users)
-
-})
-export default router;
+export default router

@@ -1,45 +1,97 @@
-export const uploadReel = async (req, res) => {
-  try {
+import Reel from "../models/Reel.js"
 
-    if (!req.file) {
-      return res.status(400).json({
-        success: false,
-        message: "Video file required"
-      })
-    }
+export const getReels = async (req,res)=>{
+try{
 
-    const caption = req.body.caption || ""
+const reels = await Reel.find()
+.sort({createdAt:-1})
+.populate("user","username name")
 
-    const rawPath = req.file.path
+res.json({
+success:true,
+data:reels
+})
 
-    const convertedPath = await convertToBrowserMp4(rawPath)
+}catch(e){
+res.status(500).json({message:e.message})
+}
+}
 
-    const finalFileName = path.basename(convertedPath)
+export const getReelById = async (req,res)=>{
+try{
 
-    const base = process.env.BASE_URL
+const reel = await Reel.findById(req.params.id)
 
-    const reel = await Reel.create({
-      user: req.user._id,
-      caption,
-      videoUrl: `${base}/uploads/reels/${finalFileName}`,
-      thumbnailUrl: "",
-      likes: [],
-      saves: []
-    })
+res.json(reel)
 
-    return res.status(201).json({
-      success: true,
-      message: "Reel uploaded",
-      data: reel
-    })
+}catch(e){
+res.status(500).json({message:e.message})
+}
+}
 
-  } catch (e) {
+export const likeReel = async (req,res)=>{
+try{
 
-    console.error("uploadReel error:", e)
+const reel = await Reel.findById(req.params.id)
 
-    return res.status(500).json({
-      success: false,
-      message: e.message || "Upload failed"
-    })
-  }
+if(!reel.likes.includes(req.user._id)){
+reel.likes.push(req.user._id)
+}
+
+await reel.save()
+
+res.json({success:true})
+
+}catch(e){
+res.status(500).json({message:e.message})
+}
+}
+
+export const commentReel = async (req,res)=>{
+try{
+
+res.json({
+success:true,
+message:"comment added"
+})
+
+}catch(e){
+res.status(500).json({message:e.message})
+}
+}
+
+export const saveReel = async (req,res)=>{
+try{
+
+const reel = await Reel.findById(req.params.id)
+
+if(!reel.saves.includes(req.user._id)){
+reel.saves.push(req.user._id)
+}
+
+await reel.save()
+
+res.json({success:true})
+
+}catch(e){
+res.status(500).json({message:e.message})
+}
+}
+
+export const unsaveReel = async (req,res)=>{
+try{
+
+const reel = await Reel.findById(req.params.id)
+
+reel.saves = reel.saves.filter(
+id => id.toString() !== req.user._id.toString()
+)
+
+await reel.save()
+
+res.json({success:true})
+
+}catch(e){
+res.status(500).json({message:e.message})
+}
 }
