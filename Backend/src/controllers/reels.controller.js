@@ -1,5 +1,5 @@
 import Reel from "../models/Reel.js"
-
+import path from "path"
 export const getReels = async (req,res)=>{
 try{
 
@@ -93,5 +93,46 @@ res.json({success:true})
 
 }catch(e){
 res.status(500).json({message:e.message})
+}
+}
+
+export const uploadReel = async (req, res) => {
+try {
+
+if (!req.file) {
+return res.status(400).json({
+success:false,
+message:"Video file required"
+})
+}
+
+const caption = req.body.caption || ""
+
+const base = process.env.BASE_URL || ""
+
+const reel = await Reel.create({
+user: req.user._id,
+caption: caption,
+videoUrl: `${base}/uploads/reels/${req.file.filename}`,
+thumbnailUrl:"",
+likes:[],
+saves:[]
+})
+
+return res.status(201).json({
+success:true,
+message:"Reel uploaded",
+data:reel
+})
+
+} catch (error) {
+
+console.error("uploadReel error:", error)
+
+return res.status(500).json({
+success:false,
+message:error.message
+})
+
 }
 }
