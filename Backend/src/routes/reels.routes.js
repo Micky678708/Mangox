@@ -1,12 +1,12 @@
 import express from "express";
 import protect from "../middleware/auth.middleware.js";
-import {
-  getReels,
-  likeReel,
-  saveReel,
-  unsaveReel,
-  uploadReel, // controller
-} from "../controllers/reels.controller.js";
+// import {
+//   getReels,
+//   likeReel,
+//   saveReel,
+//   unsaveReel,
+//   uploadReel, // controller
+// } from "../controllers/reels.controller.js";
 
 import { uploadReelVideo } from "../config/multer.js";
 
