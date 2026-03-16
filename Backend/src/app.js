@@ -17,12 +17,14 @@ const __dirname = path.dirname(__filename)
 const app = express()
 
 app.use(cors({
-origin:[
+origin: [
 "http://localhost:5173",
 "https://mangox-zeta.vercel.app"
 ],
-credentials:true
+credentials: true
 }))
+
+app.options("*", cors())
 
 app.use(express.json())
 app.use(express.urlencoded({extended:true}))
