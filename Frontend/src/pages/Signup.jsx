@@ -22,13 +22,13 @@ const [loading, setLoading] = useState(false);
 const handleChange = (e) => {
 setForm({
 ...form,
-[e.target.name]: e.target.value
+[e.target.name]: e.target.value.trim()
 });
 };
 
 const checkUsername = async (username) => {
 
-if (username.length < 3) {
+if (!username || username.length < 3) {
 setUsernameStatus("");
 return;
 }
@@ -40,26 +40,23 @@ setCheckingUsername(true);
 const res = await fetch(`${API}/api/auth/check-username/${username}`);
 const data = await res.json();
 
-if (data.available) {
+if (data?.available === true) {
 setUsernameStatus("available");
 } else {
 setUsernameStatus("taken");
 }
 
-setCheckingUsername(false);
-
 } catch (err) {
-console.log(err);
-setCheckingUsername(false);
+console.log("Username check error:", err);
+setUsernameStatus("");
 }
 
+setCheckingUsername(false);
 };
 
 const getPasswordStrength = (password) => {
 
-if (password.length < 6) {
-return "Weak";
-}
+if (password.length < 6) return "Weak";
 
 if (
 /[A-Z]/.test(password) &&
@@ -74,10 +71,10 @@ return "Medium";
 
 const validateForm = () => {
 
-if(!form.username){
-alert("Username required")
-return false
-}    
+if (!form.username) {
+alert("Username required");
+return false;
+}
 
 if (!form.phone && !form.email) {
 alert("Phone or Email required");
@@ -124,34 +121,46 @@ body: JSON.stringify(form)
 
 const data = await res.json();
 
-console.log("SIGNUP RESPONSE:", data)
+console.log("Signup response:", data);
 
-if(data.success === true){
+// flexible token handling
+const token =
+data?.data?.accessToken ||
+data?.accessToken ||
+data?.token;
 
-// save token
-localStorage.setItem("token", data.data.accessToken)
-localStorage.setItem("refreshToken", data.data.refreshToken)
+const refreshToken =
+data?.data?.refreshToken ||
+data?.refreshToken;
 
-console.log("TOKEN SAVED:", data.data.accessToken)
+if (token) {
 
-// redirect
-window.location.href="/home"
+localStorage.setItem("token", token);
 
-}else{
+if (refreshToken) {
+localStorage.setItem("refreshToken", refreshToken);
+}
 
-alert(JSON.stringify(data))
+console.log("TOKEN SAVED:", token);
+
+alert("Signup successful 🎉");
+
+window.location.href = "/home";
+
+} else {
+
+alert(data?.message || "Signup failed");
 
 }
-setLoading(false);
 
 } catch (err) {
 
-console.log(err);
+console.log("Signup error:", err);
 alert("Server error");
-setLoading(false);
 
 }
 
+setLoading(false);
 };
 
 return (
