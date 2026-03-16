@@ -74,6 +74,11 @@ return "Medium";
 
 const validateForm = () => {
 
+if(!form.username){
+alert("Username required")
+return false
+}    
+
 if (!form.phone && !form.email) {
 alert("Phone or Email required");
 return false;
@@ -119,26 +124,24 @@ body: JSON.stringify(form)
 
 const data = await res.json();
 
-if(data.success){
+console.log("SIGNUP RESPONSE:", data)
 
-// token save
+if(data.success === true){
+
+// save token
 localStorage.setItem("token", data.data.accessToken)
 localStorage.setItem("refreshToken", data.data.refreshToken)
 
-// confirm
-alert("Signup successful")
+console.log("TOKEN SAVED:", data.data.accessToken)
 
 // redirect
-setTimeout(()=>{
 window.location.href="/home"
-},500)
 
 }else{
 
-alert(data.message || "Signup failed")
+alert(JSON.stringify(data))
 
 }
-
 setLoading(false);
 
 } catch (err) {
