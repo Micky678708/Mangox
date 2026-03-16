@@ -119,18 +119,23 @@ body: JSON.stringify(form)
 
 const data = await res.json();
 
-if (data.success) {
+if(data.success){
 
-localStorage.setItem("token", data.data.accessToken);
-localStorage.setItem("refreshToken", data.data.refreshToken);
+// token save
+localStorage.setItem("token", data.data.accessToken)
+localStorage.setItem("refreshToken", data.data.refreshToken)
 
-alert("Signup successful 🎉");
+// confirm
+alert("Signup successful")
 
-window.location.href = "/";
+// redirect
+setTimeout(()=>{
+window.location.href="/home"
+},500)
 
-} else {
+}else{
 
-alert(data.message || "Signup failed");
+alert(data.message || "Signup failed")
 
 }
 
