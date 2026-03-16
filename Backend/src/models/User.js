@@ -7,6 +7,11 @@ const UserSchema = new mongoose.Schema(
     name: { type: String, trim: true, default: "" },
     email: { type: String, trim: true, lowercase: true, unique: true, sparse: true },
     phone: { type: String, trim: true, unique: true, sparse: true },
+    dob: {
+  day: String,
+  month: String,
+  year: String
+},
     password: { type: String, required: true },
 
     // refresh token rotation/support (simple)
@@ -23,6 +28,30 @@ UserSchema.pre("save", async function (next) {
   if (!this.isModified("password")) return next();
   this.password = await bcrypt.hash(this.password, 10);
   next();
+const UserSchema = new mongoose.Schema({
+
+username:{type:String,trim:true,unique:true,sparse:true},
+
+name:{type:String,trim:true,default:""},
+
+email:{type:String,trim:true,lowercase:true,unique:true,sparse:true},
+
+phone:{type:String,trim:true,unique:true,sparse:true},
+
+dob:{
+day:String,
+month:String,
+year:String
+},
+
+password:{type:String,required:true},
+
+refreshToken:{type:String,default:null},
+
+savedReels:[{type:mongoose.Schema.Types.ObjectId,ref:"Reel"}]
+
+},{timestamps:true})
+
 });
 
 UserSchema.methods.comparePassword = async function (plain) {
