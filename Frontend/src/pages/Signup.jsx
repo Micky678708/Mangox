@@ -1,130 +1,152 @@
-import React,{useState} from "react"
+import React, { useState } from "react";
 
-const API="https://mangox-jhei.onrender.com"
+const API = "https://mangox-jhei.onrender.com";
 
-export default function Signup(){
+export default function Signup() {
 
-const [form,setForm]=useState({
-phone:"",
-email:"",
-password:"",
-day:"",
-month:"",
-year:"",
-username:"",
-name:""
-})
+const [form, setForm] = useState({
+phone: "",
+email: "",
+password: "",
+day: "",
+month: "",
+year: "",
+username: "",
+name: ""
+});
 
-const [usernameStatus,setUsernameStatus]=useState("")
-const [checkingUsername,setCheckingUsername]=useState(false)
+const [usernameStatus, setUsernameStatus] = useState("");
+const [checkingUsername, setCheckingUsername] = useState(false);
+const [loading, setLoading] = useState(false);
 
-const handleChange=(e)=>{
+const handleChange = (e) => {
 setForm({
 ...form,
-[e.target.name]:e.target.value
-})
+[e.target.name]: e.target.value
+});
+};
+
+const checkUsername = async (username) => {
+
+if (username.length < 3) {
+setUsernameStatus("");
+return;
 }
 
-const checkUsername=async(username)=>{
+try {
 
-if(username.length<3){
-setUsernameStatus("")
-return
+setCheckingUsername(true);
+
+const res = await fetch(`${API}/api/auth/check-username/${username}`);
+const data = await res.json();
+
+if (data.available) {
+setUsernameStatus("available");
+} else {
+setUsernameStatus("taken");
 }
 
-try{
+setCheckingUsername(false);
 
-setCheckingUsername(true)
-
-const res=await fetch(`${API}/api/auth/check-username/${username}`)
-const data=await res.json()
-
-if(data.available){
-setUsernameStatus("available")
-}else{
-setUsernameStatus("taken")
+} catch (err) {
+console.log(err);
+setCheckingUsername(false);
 }
 
-setCheckingUsername(false)
+};
 
-}catch(err){
-console.log(err)
-setCheckingUsername(false)
+const getPasswordStrength = (password) => {
+
+if (password.length < 6) {
+return "Weak";
 }
 
-}
-
-const getPasswordStrength=(password)=>{
-
-if(password.length<6){
-return "Weak"
-}
-
-if(
+if (
 /[A-Z]/.test(password) &&
 /[0-9]/.test(password) &&
 /[^A-Za-z0-9]/.test(password)
-){
-return "Strong"
+) {
+return "Strong";
 }
 
-return "Medium"
+return "Medium";
+};
+
+const validateForm = () => {
+
+if (!form.phone && !form.email) {
+alert("Phone or Email required");
+return false;
 }
 
-const validateForm=()=>{
-
-if(!form.phone && !form.email){
-alert("Phone or Email required")
-return false
+if (form.password.length < 6) {
+alert("Password must be at least 6 characters");
+return false;
 }
 
-if(form.password.length<6){
-alert("Password must be 6 characters")
-return false
+const age = new Date().getFullYear() - parseInt(form.year || "0");
+
+if (age < 15) {
+alert("Age must be 15+");
+return false;
 }
 
-const age=new Date().getFullYear()-parseInt(form.year)
-
-if(age<15){
-alert("Age must be 15+")
-return false
+if (usernameStatus === "taken") {
+alert("Username already used");
+return false;
 }
 
-return true
-}
+return true;
+};
 
-const handleSubmit=async(e)=>{
+const handleSubmit = async (e) => {
 
-e.preventDefault()
+e.preventDefault();
 
-if(!validateForm()) return
+if (!validateForm()) return;
 
-try{
+try {
 
-const res=await fetch(`${API}/api/auth/signup`,{
-method:"POST",
-headers:{
-"Content-Type":"application/json"
+setLoading(true);
+
+const res = await fetch(`${API}/api/auth/signup`, {
+method: "POST",
+headers: {
+"Content-Type": "application/json"
 },
-body:JSON.stringify(form)
-})
+body: JSON.stringify(form)
+});
 
-const data=await res.json()
+const data = await res.json();
 
-if(data.token){
-localStorage.setItem("token",data.token)
-window.location.href="/"
-}else{
-alert(data.message)
+if (data.success) {
+
+localStorage.setItem("token", data.data.accessToken);
+localStorage.setItem("refreshToken", data.data.refreshToken);
+
+alert("Signup successful 🎉");
+
+window.location.href = "/";
+
+} else {
+
+alert(data.message || "Signup failed");
+
 }
 
-}catch(err){
-console.log(err)
-}
+setLoading(false);
+
+} catch (err) {
+
+console.log(err);
+alert("Server error");
+setLoading(false);
 
 }
 
-return(
+};
+
+return (
 
 <div className="signupPage">
 
@@ -184,22 +206,25 @@ onChange={handleChange}
 <input
 name="username"
 placeholder="Username"
-onChange={(e)=>{
-handleChange(e)
-checkUsername(e.target.value)
+onChange={(e) => {
+handleChange(e);
+checkUsername(e.target.value);
 }}
 />
 
 {checkingUsername && (
-<p style={{color:"#888"}}>Checking username...</p>
+
+<p style={{ color: "#888" }}>Checking username...</p>
 )}
 
-{usernameStatus==="available" && (
-<p style={{color:"green"}}>✔ Username available</p>
+{usernameStatus === "available" && (
+
+<p style={{ color: "green" }}>✔ Username available</p>
 )}
 
-{usernameStatus==="taken" && (
-<p style={{color:"red"}}>Username already used</p>
+{usernameStatus === "taken" && (
+
+<p style={{ color: "red" }}>Username already used</p>
 )}
 
 <input
@@ -208,8 +233,8 @@ placeholder="Full name"
 onChange={handleChange}
 />
 
-<button className="signupBtn">
-Create Account
+<button className="signupBtn" disabled={loading}>
+{loading ? "Creating..." : "Create Account"}
 </button>
 
 </form>
@@ -218,6 +243,5 @@ Create Account
 
 </div>
 
-)
-
+);
 }
