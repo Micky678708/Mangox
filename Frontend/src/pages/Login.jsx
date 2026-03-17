@@ -108,7 +108,9 @@ export default function Login() {
             </div>
 
             <div className="authLinks authLinksStack">
-              <Link to="/forgot-password">Forgot password?</Link>
+              <a href="/forgot-password">
+Forgot password?
+</a>
               <Link to="/find-id">Find profile / ID</Link>
             </div>
           </div>
