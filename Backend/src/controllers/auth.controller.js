@@ -146,10 +146,14 @@ export async function login(req, res) {
     );
 
     return res.json({
-      success: true,
-      message: "Login success",
-      data: { accessToken, user },
-    });
+success:true,
+message:"Signup success",
+data:{
+accessToken,
+refreshToken,
+user:pickUser(user)
+}
+});
   } catch (e) {
     return res.status(500).json({ success: false, message: e.message });
   }
