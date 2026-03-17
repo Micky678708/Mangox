@@ -8,6 +8,10 @@ const [identifier,setIdentifier]=useState("")
 const [user,setUser]=useState(null)
 const [step,setStep]=useState(1)
 
+const [otp,setOtp]=useState("")
+const [newPassword,setNewPassword]=useState("")
+
+// FIND ACCOUNT
 const findAccount=async()=>{
 
 try{
@@ -32,7 +36,8 @@ console.log(err)
 
 }
 
-const sendOtp=async(type)=>{
+// SEND OTP
+const sendOtp=async()=>{
 
 try{
 
@@ -43,8 +48,7 @@ headers:{
 },
 body:JSON.stringify({
 identifier,
-purpose:"forgot_password",
-method:type
+purpose:"forgot_password"
 })
 })
 
@@ -53,6 +57,80 @@ const data=await res.json()
 if(data.success){
 
 alert("OTP sent")
+setStep(3)
+
+}else{
+
+alert(data.message)
+
+}
+
+}catch(err){
+console.log(err)
+}
+
+}
+
+// VERIFY OTP
+const verifyOtp=async()=>{
+
+try{
+
+const res=await fetch(`${API}/api/auth/verify-otp`,{
+method:"POST",
+headers:{
+"Content-Type":"application/json"
+},
+body:JSON.stringify({
+identifier,
+purpose:"forgot_password",
+otp
+})
+})
+
+const data=await res.json()
+
+if(data.success){
+
+setStep(4)
+
+}else{
+
+alert(data.message)
+
+}
+
+}catch(err){
+console.log(err)
+}
+
+}
+
+// RESET PASSWORD
+const resetPassword=async()=>{
+
+try{
+
+const res=await fetch(`${API}/api/auth/reset-password-otp`,{
+method:"POST",
+headers:{
+"Content-Type":"application/json"
+},
+body:JSON.stringify({
+identifier,
+purpose:"forgot_password",
+otp,
+newPassword
+})
+})
+
+const data=await res.json()
+
+if(data.success){
+
+alert("Password updated")
+
+window.location.href="/home"
 
 }else{
 
@@ -72,7 +150,7 @@ return(
 
 {step===1 &&(
 
-<div className="findAccount">
+<div>
 
 <h2>Find your account</h2>
 
@@ -92,18 +170,56 @@ Continue
 
 {step===2 &&(
 
-<div className="otpOptions">
+<div>
 
-<h3>Choose where to send OTP</h3>
+<h3>Account found</h3>
 
-<button onClick={()=>sendOtp("app")}>
-Send OTP to MangoX App </button>
+<p>{user.username}</p>
 
-<button onClick={()=>sendOtp("email")}>
-Send OTP to Email ({user.email}) </button>
+<button onClick={sendOtp}>
+Send OTP
+</button>
 
-<button onClick={()=>sendOtp("phone")}>
-Send OTP to Phone ({user.phone}) </button>
+</div>
+
+)}
+
+{step===3 &&(
+
+<div>
+
+<h3>Enter OTP</h3>
+
+<input
+placeholder="OTP"
+value={otp}
+onChange={(e)=>setOtp(e.target.value)}
+/>
+
+<button onClick={verifyOtp}>
+Verify OTP
+</button>
+
+</div>
+
+)}
+
+{step===4 &&(
+
+<div>
+
+<h3>Reset password</h3>
+
+<input
+type="password"
+placeholder="New password"
+value={newPassword}
+onChange={(e)=>setNewPassword(e.target.value)}
+/>
+
+<button onClick={resetPassword}>
+Reset password
+</button>
 
 </div>
 
