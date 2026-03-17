@@ -38,6 +38,13 @@ try {
 setCheckingUsername(true);
 
 const res = await fetch(`${API}/api/auth/check-username/${username}`);
+
+if(!res.ok){
+setUsernameStatus("");
+setCheckingUsername(false);
+return;
+}
+
 const data = await res.json();
 
 if (data?.available === true) {
@@ -47,8 +54,10 @@ setUsernameStatus("taken");
 }
 
 } catch (err) {
+
 console.log("Username check error:", err);
 setUsernameStatus("");
+
 }
 
 setCheckingUsername(false);
@@ -123,15 +132,15 @@ const data = await res.json();
 
 console.log("Signup response:", data);
 
-// flexible token handling
+// token extraction (your backend sends it inside message)
 const token =
+data?.message?.accessToken ||
 data?.data?.accessToken ||
-data?.accessToken ||
-data?.token;
+data?.accessToken;
 
 const refreshToken =
-data?.data?.refreshToken ||
-data?.refreshToken;
+data?.message?.refreshToken ||
+data?.data?.refreshToken;
 
 if (token) {
 
